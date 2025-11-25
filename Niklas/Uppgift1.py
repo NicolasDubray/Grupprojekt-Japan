@@ -95,7 +95,7 @@ fig_medaljer.add_trace(
 )
 fig_medaljer.add_trace(
     go.Bar(x=['Lagsporter','Individuellt'],
-           y=[japan['lagvinster']['Count'].sum(), japan['indvinster']['Count'].sum()]),
+           y=[japan_lagvinster['Count'].sum(), japan['indvinster']['Count'].sum()]),
     row=1, col=2
 )
 fig_medaljer.update_layout(title='Medaljer lag vs individ (globalt + Japan)', height=fig_height, margin=fig_margin)
