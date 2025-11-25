@@ -56,33 +56,31 @@ def könsfördelning(df):
 
 medalj_data = gruppering(athlete_events_enc)
 japan = japan_stats(medalj_data)
-japan_lagvinster = medalj_data['lagsporter'][medalj_data['lagsporter']['NOC']=='JPN']
 antal_jap, antal_jap_f, antal_jap_m = könsfördelning(japan['os_japaner'])
 
+japan_lagvinster = medalj_data['lagsporter'][medalj_data['lagsporter']['NOC']=='JPN']
 lagsporter_topp50_medalj = (medalj_data['lagsporter'].groupby('NOC')['Count'].sum().sort_values(ascending=False).head(50))
 indsporter_topp50_medalj = (medalj_data['indiv'].groupby('NOC')['Count'].sum().sort_values(ascending=False).head(50))
 medalj_total = medalj_data['lagsporter'].groupby('NOC')['Count'].sum() + medalj_data['indiv'].groupby('NOC')['Count'].sum()
 podium_total = medalj_data['lagsporter'].groupby('NOC').size() + medalj_data['indiv'].groupby('NOC').size()
 topp50_medalj = medalj_total.sort_values(ascending=False).head(50)
 topp50_podium = podium_total.sort_values(ascending=False).head(50)
-topp50_rank_medalj = [f'{i+1}. {noc}' for i, noc in enumerate(topp50_medalj.index)]
-topp50_rank_podium = [f'{i+1}. {noc}' for i, noc in enumerate(topp50_podium.index)]
 fig_height = 600
 fig_margin = dict(t=80, l=40, r=40, b=40)
 
 fig_topp50 = make_subplots(
     rows=1, cols=2,
-    subplot_titles=('Lagsporter topp 50', 'Individuella topp 50')
+    subplot_titles=('Lagsporter', 'Individuella')
 )
 fig_topp50.add_trace(
-    go.Bar(x=lagsporter_topp50_medalj.index, y=lagsporter_topp50_medalj.values),
+    go.Bar(x=[f"{i+1}. {noc}" for i, noc in enumerate(lagsporter_topp50_medalj.index)], y=lagsporter_topp50_medalj.values),
     row=1, col=1
 )
 fig_topp50.add_trace(
-    go.Bar(x=indsporter_topp50_medalj.index, y=indsporter_topp50_medalj.values),
+    go.Bar(x=[f"{i+1}. {noc}" for i, noc in enumerate(indsporter_topp50_medalj.index)], y=indsporter_topp50_medalj.values),
     row=1, col=2
 )
-fig_topp50.update_layout(title='Topp 50 länder: lag vs individuellt', height=fig_height, margin=fig_margin)
+fig_topp50.update_layout(title='Topp 50 länder: antal medaljer tagna lag vs individuellt', height=fig_height, margin=fig_margin)
 
 fig_medaljer = make_subplots(
     rows=1, cols=2,
@@ -156,11 +154,11 @@ fig_topp50_tot = make_subplots(
     subplot_titles=('Medaljer topp 50', 'Podiumplaceringar topp 50')
 )
 fig_topp50_tot.add_trace(
-    go.Bar(x=topp50_rank_medalj, y=topp50_medalj.values),
+    go.Bar(x=[f"{i+1}. {noc}" for i, noc in enumerate(topp50_medalj.index)], y=topp50_medalj.values),
     row=1, col=1
 )
 fig_topp50_tot.add_trace(
-    go.Bar(x=topp50_rank_podium, y=topp50_podium.values),
+    go.Bar(x=[f"{i+1}. {noc}" for i, noc in enumerate(topp50_podium.index)], y=topp50_podium.values),
     row=1, col=2
 )
 fig_topp50_tot.update_layout(title='Topp 50 länder: medaljer vs podiumplaceringar', height=fig_height, margin=fig_margin)
