@@ -65,8 +65,8 @@ medalj_total = medalj_data['lagsporter'].groupby('NOC')['Count'].sum() + medalj_
 podium_total = medalj_data['lagsporter'].groupby('NOC').size() + medalj_data['indiv'].groupby('NOC').size()
 topp50_medalj = medalj_total.sort_values(ascending=False).head(50)
 topp50_podium = podium_total.sort_values(ascending=False).head(50)
-topp50_rank_medalj = [f"{i+1}. {noc}" for i, noc in enumerate(topp50_medalj.index)]
-topp50_rank_podium = [f"{i+1}. {noc}" for i, noc in enumerate(topp50_podium.index)]
+topp50_rank_medalj = [f'{i+1}. {noc}' for i, noc in enumerate(topp50_medalj.index)]
+topp50_rank_podium = [f'{i+1}. {noc}' for i, noc in enumerate(topp50_podium.index)]
 fig_height = 600
 fig_margin = dict(t=80, l=40, r=40, b=40)
 
