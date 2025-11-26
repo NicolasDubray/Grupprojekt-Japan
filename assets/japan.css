@@ -1,0 +1,10 @@
+div.tab--selected {
+    background-color: darkred !important;
+    color: white !important;
+    border-color: black !important;
+}
+
+div.tab {
+    background-color: white;
+    color: darkred;
+}
